@@ -11,6 +11,10 @@ class TestSettings(unittest.TestCase):
         self.assertTrue(manager.open("test_settings.json"))
 
 class TestSettingsManager(unittest.TestCase):
+    def test_singleton_instance(self):
+        manager1 = SettingsManager()
+        manager2 = SettingsManager()
+        self.assertIs(manager1, manager2, "Созданы различные экземпляры")
     def test_settings_loading(self):
         manager = SettingsManager()
         result = manager.open("../settings.json")
