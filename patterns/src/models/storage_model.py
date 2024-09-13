@@ -1,6 +1,6 @@
-from src.models.abstract_reference import abstract_referance
+from src.models.abstract_reference import abstract_reference
 
 
-class storage_model(abstract_referance):
-    def __init__(self, name: str):
-        super().__init__(name)
+class storage_model(abstract_reference):
+    def __init__(self):
+        super().__init__()

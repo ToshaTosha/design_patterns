@@ -3,12 +3,10 @@ from src.models.abstract_reference import abstract_reference
 
 class range_model(abstract_reference):
     __base = None
-    __coef: int
+    __coef: int = 0
 
-    def __init__(self, name=''):
-        super().__init__(name)
-        self.__base = None
-        self.__coef = 0
+    def __init__(self):
+        super().__init__()
 
     @property
     def base(self):

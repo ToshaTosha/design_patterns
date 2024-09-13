@@ -6,11 +6,18 @@ class abstract_reference(ABC):
     __unique_code: uuid.UUID
     __name: str = ''
 
-    def __init__(self, name: str = ''):
-        if len(name) > 50:
-            raise argument_exception('Name should not exceed 50 characters')
-        self.name = name
-        self.__id = str(uuid.uuid4())
+    def __init__(self):
+        self.__name = ''
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, value):
+        if len(value) > 50:
+            raise ValueError('Name should not exceed 50 characters')
+        self.__name = value
 
     """
     Уникальный код
