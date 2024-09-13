@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import uuid
 from src.exeptions import argument_exception
 
-class abstract_referance(ABC):
+class abstract_reference(ABC):
     __unique_code: uuid.UUID
     __name: str = ''
 
@@ -17,4 +17,11 @@ class abstract_referance(ABC):
     """
     @property
     def unique_code(self) -> str:
-        return self.__unique_code
+        return self.__name
+
+    @abstractmethod
+    def set_compare_mode(self, other_object) -> bool:
+        if other_object is None: return False
+        if not isinstance(other_object, abstract_reference): return False
+
+        return self.name == other_object.name

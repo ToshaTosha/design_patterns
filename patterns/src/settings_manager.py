@@ -53,7 +53,6 @@ class SettingsManager:
 
             with open(full_name, 'r', encoding='utf-8') as file:
                 data = json.load(file)
-                print(data)
                 self.convert(data)
 
             return True

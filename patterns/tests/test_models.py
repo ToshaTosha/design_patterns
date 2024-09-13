@@ -10,21 +10,30 @@ from src.settings_manager import SettingsManager
 class test_models(unittest.TestCase):
 
     def test_range_model_creation(self):
-        base_range = range_model("грамм", 1)
+        base_range = range_model("грамм")
+        base_range.coef = 1
         self.assertEqual(base_range.name, "грамм")
         self.assertEqual(base_range.coef, 1)
 
-    def test_unit_conversion(self):
-        base_range = range_model("грамм", 1)
-        new_range = range_model("кг", 1000, base_range)
+    def test_range_conversion(self):
+        base_range = range_model("грамм")
+        new_range = range_model("кг")
+        new_range.coef = 1000
+        new_range.base = base_range
 
-        value = 1500
-        base_value = new_range.convert_to_base(value)
-        self.assertEqual(base_value, value / 1000)
+        gram_in_kilo = new_range.to_base
 
-        value = 2.5
-        converted_value = new_range.convert_from_base(value)
-        self.assertEqual(converted_value, value * 1000)
+        self.assertEqual(gram_in_kilo.name, 'грамм')
+        self.assertEqual(gram_in_kilo.base, None)
+
+    def test_range_model_compare_mode(self):
+        range1 = range_model("range1")
+        range2 = range_model("range1")
+
+        self.assertTrue(range1.set_compare_mode(range2))
+
+        range3 = range_model("range3")
+        self.assertFalse(range1.set_compare_mode(range3))
 
     def test_organizations(self):
         manager = SettingsManager()
@@ -38,8 +47,11 @@ class test_models(unittest.TestCase):
 
     def test_nomen(self):
         group = nomenclature_group_model('group')
-        base_range = range_model("грамм", 1)
-        nom = nomenclature_model("nomen", group, base_range, "full_name")
+        base_range = range_model("грамм")
+        nom = nomenclature_model("nomen")
+        nom.full_name = "full_name"
+        nom.group = group
+        nom.range = base_range
 
         self.assertEqual(nom.name, "nomen")
         self.assertEqual(nom.group, group)
