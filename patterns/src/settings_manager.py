@@ -4,6 +4,7 @@ import json
 import os
 
 from src.settings import Settings
+print('test')
 
 """
 Менеджер настроек
