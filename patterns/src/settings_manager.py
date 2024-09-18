@@ -2,6 +2,7 @@
 
 import json
 import os
+from src.abstract_logic import abstract_logic
 
 from src.settings import Settings
 
@@ -9,7 +10,7 @@ from src.settings import Settings
 Менеджер настроек
 """
 
-class SettingsManager:
+class SettingsManager(abstract_logic):
     __file_name = "settings.json"
     __settings: Settings = Settings()
 
@@ -53,7 +54,6 @@ class SettingsManager:
 
             with open(full_name, 'r', encoding='utf-8') as file:
                 data = json.load(file)
-                print(data)
                 self.convert(data)
 
             return True
@@ -87,3 +87,6 @@ class SettingsManager:
         data.business_type = "68339"
 
         return data
+
+    def set_exception(self, ex: Exception):
+        self._inner_set_exception(ex)
