@@ -2,7 +2,7 @@ from src.core.abstract_logic import abstract_logic
 from src.data_reposity import data_reposity
 from src.core.validator import validator
 from src.models.nomenclature_group_model import nomenclature_group_model as group_model
-from src.models.recipe_model import recipe_model
+from src.models.recipe_model import recipe_model, receipt_row
 from src.settings_manager import SettingsManager as settings_manager
 from src.settings import Settings as settings
 from src.models.range_model import range_model
@@ -36,40 +36,46 @@ class start_service(abstract_logic):
 
     def __create_measurement_units_data(self):
         nomens = self.__reposity.data[data_reposity.nomenclature_key()]
-        self.__reposity.data[data_reposity.group_key()] = list(set([x.group for x in nomens]))
+        self.__reposity.data[data_reposity.range_key()] = list(set([x.range for x in nomens]))
 
     def __create_nomenclature_group(self):
         nomens = self.__reposity.data[data_reposity.nomenclature_key()]
-        self.__reposity.data[data_reposity.range_key()] = list(set([x.group for x in nomens]))
+        self.__reposity.data[data_reposity.group_key()] = list(set([x.nomenclature.group for x in nomens]))
 
     def __create_recipets(self):
         recipe = recipe_model()
         nomen_group = nomenclature_group_model.default_group_source()
+
+        range_gramm = range_model()
+        range_gramm.name = "грамм"
+        range_gramm.coef = 1
+
+        range_count = range_model()
+        range_count.name = "штука"
+        range_count.coef = 1
+
         data = []
 
-        nom = nomenclature_model()
-        nom.name = 'Пшеничная мука'
-        nom.full_name = 'Пшеничная мука'
-        nom.group = nomen_group
-        data.append(nom)
+        ingredients = [
+            {"name": "Пшеничная мука", "full_name": "Пшеничная мука", "value": 100, "range": range_gramm},
+            {"name": "Сахар", "full_name": "Сахар", "value": 50, "range": range_gramm},
+            {"name": "Сливочное масло", "full_name": "Сливочное масло", "value": 40, "range": range_gramm},
+            {"name": "Яйца", "full_name": "Яйца", "value": 1, "range": range_count}
+        ]
 
-        nom = nomenclature_model()
-        nom.name = 'Сахар'
-        nom.full_name = 'Сахар'
-        nom.group = nomen_group
-        data.append(nom)
+        for ingredient in ingredients:
+            nom = nomenclature_model()
+            nom.name = ingredient["name"]
+            nom.full_name = ingredient["full_name"]
+            nom.group = nomen_group
 
-        nom = nomenclature_model()
-        nom.name = 'Сливочное масло'
-        nom.full_name = 'Сливочное масло'
-        nom.group = nomen_group
-        data.append(nom)
+            row = receipt_row()
+            row.nomenclature = nom
+            row.range = range_count
+            row.value = ingredient["value"]
 
-        nom = nomenclature_model()
-        nom.name = 'Яйца'
-        nom.full_name = 'Яйца'
-        nom.group = nomen_group
-        data.append(nom)
+            data.append(row)
+
         recipe.name = 'ВАФЛИ ХРУСТЯЩИЕ В ВАФЕЛЬНИЦЕ'
         recipe.noms = data
         recipe.description = '''
