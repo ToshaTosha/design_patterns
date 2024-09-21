@@ -1,7 +1,6 @@
 from src.core.abstract_logic import abstract_logic
 from src.data_reposity import data_reposity
 from src.core.validator import validator
-from src.models.nomenclature_group_model import nomenclature_group_model as group_model
 from src.models.recipe_model import recipe_model, receipt_row
 from src.settings_manager import SettingsManager as settings_manager
 from src.settings import Settings as settings
@@ -36,6 +35,7 @@ class start_service(abstract_logic):
 
     def __create_measurement_units_data(self):
         nomens = self.__reposity.data[data_reposity.nomenclature_key()]
+        print(list(set([x.range for x in nomens])))
         self.__reposity.data[data_reposity.range_key()] = list(set([x.range for x in nomens]))
 
     def __create_nomenclature_group(self):
@@ -46,13 +46,8 @@ class start_service(abstract_logic):
         recipe = recipe_model()
         nomen_group = nomenclature_group_model.default_group_source()
 
-        range_gramm = range_model()
-        range_gramm.name = "грамм"
-        range_gramm.coef = 1
-
-        range_count = range_model()
-        range_count.name = "штука"
-        range_count.coef = 1
+        range_gramm = range_model.create_gramm()
+        range_count = range_model.create_count()
 
         data = []
 
@@ -64,10 +59,7 @@ class start_service(abstract_logic):
         ]
 
         for ingredient in ingredients:
-            nom = nomenclature_model()
-            nom.name = ingredient["name"]
-            nom.full_name = ingredient["full_name"]
-            nom.group = nomen_group
+            nom = nomenclature_model.create_nomenclature(ingredient["full_name"], nomen_group)
 
             row = receipt_row()
             row.nomenclature = nom
