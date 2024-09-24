@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from src.core.validator import validator
 
 """
 Абстрактный класс для обработки логики
@@ -8,13 +9,22 @@ from abc import ABC, abstractmethod
 class abstract_logic(ABC):
     __error_text: str = ""
 
+    """
+    Описание ошибки
+    """
+
     @property
     def error_text(self) -> str:
         return self.__error_text.strip()
 
     @error_text.setter
     def error_text(self, message: str):
+        validator.validate(message, str)
         self.__error_text = message.strip()
+
+    """
+    Флаг. Есть ошибка
+    """
 
     @property
     def is_error(self) -> bool:

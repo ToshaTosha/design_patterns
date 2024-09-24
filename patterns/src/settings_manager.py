@@ -2,7 +2,7 @@
 
 import json
 import os
-from src.abstract_logic import abstract_logic
+from src.core.abstract_logic import abstract_logic
 
 from src.settings import Settings
 

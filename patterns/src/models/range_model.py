@@ -8,6 +8,22 @@ class range_model(abstract_reference):
     def __init__(self):
         super().__init__()
 
+    @staticmethod
+    def create_gramm():
+        item = range_model()
+        item.name = "грамм"
+        item.base = None
+        item.coef = 1
+        return item
+
+    @staticmethod
+    def create_count():
+        item = range_model()
+        item.name = "штука"
+        item.base = None
+        item.coef = 1
+        return item
+
     @property
     def base(self):
         return self.__base
