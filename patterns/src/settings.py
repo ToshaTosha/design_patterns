@@ -10,6 +10,15 @@ class Settings:
     __correspondent_account = ""
     __bik = ""
     __business_type = ""
+    __report_format = ""
+
+    report_formats_mapping = {
+        "CSV": "csv_report",
+        "Markdown": "markdown_report",
+        "Json": "json_report",
+        "XML": "xml_report",
+        "RTF": "rtf_report"
+    }
 
     @property
     def inn(self):
@@ -71,3 +80,16 @@ class Settings:
         if len(value) != 5:
             raise ValueError("Вид собственности должен быть 5 символов")
         self.__business_type = value
+
+    @property
+    def report_format(self):
+        return self.__report_format
+
+    @report_format.setter
+    def report_format(self, value: str):
+        if value not in self.report_formats_mapping:
+            raise ValueError(f"Неподдерживаемый формат отчета: {value}")
+        self.__report_format = value
+
+    def get_report_class(self):
+        return self.report_formats_mapping.get(self.__report_format, "default_report_class")
