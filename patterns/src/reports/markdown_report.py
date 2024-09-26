@@ -13,30 +13,25 @@ class markdown_report(abstract_report):
         if len(data) == 0:
             raise operation_exception("Набор данных пуст!")
 
-        first_model = data[0]
+        first_model = data[0].nomenclature
 
         # Список полей от типа назначения
-        fields = list(filter(lambda x: not x.startswith("_") and not callable(getattr(first_model.__class__, x)),
-                             dir(first_model)))
+        fields = self.get_class_fields(first_model)
 
-        print(data)
-        # Заголовок
+        self.result = "|"
+        divider = "|"
         for field in fields:
-            self.result += f"{str(field)} |"
+            self.result += f"{str(field)}|"
+            divider += "-" * (len(field)) + "|"
 
         self.result += "\n"
+        self.result += divider + "\n"
 
-        # Разделитель заголовка и данных
-        for field in fields:
-            self.result += "--- |"
-
-        self.result += "\n"
-
-        # Данные
         for row in data:
+            self.result += "|"
             for field in fields:
-                value = getattr(row, field)
-                self.result += f"{str(value)} |"
+                value = getattr(row.nomenclature, field)
+                self.result += f"{value}|"
             self.result += "\n"
 
     def save(self, file_name):

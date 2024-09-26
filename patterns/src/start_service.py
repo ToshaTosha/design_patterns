@@ -59,7 +59,7 @@ class start_service(abstract_logic):
         ]
 
         for ingredient in ingredients:
-            nom = nomenclature_model.create_nomenclature(ingredient["full_name"], nomen_group)
+            nom = nomenclature_model.create_nomenclature(ingredient["full_name"], nomen_group, ingredient["range"])
 
             row = receipt_row()
             row.nomenclature = nom
@@ -82,8 +82,13 @@ class start_service(abstract_logic):
         self.__create_nomenclature_data()
         self.__create_nomenclature_group()
         self.__create_measurement_units_data()
-
         result = list(self.__reposity.data.values())
+        # print(result[0].noms, 'result[0].noms')
+
+        for row in self.__reposity.data[data_reposity.recipe_key()].noms:
+            for field in range(1):
+                value = getattr(row.nomenclature, 'range')
+                # print(value, 'self.__reposity.data')
 
         return result
 

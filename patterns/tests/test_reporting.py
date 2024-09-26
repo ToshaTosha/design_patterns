@@ -1,5 +1,6 @@
 from src.reports.json_report import json_report
 from src.reports.markdown_report import markdown_report
+from src.settings import Settings
 from src.start_service import start_service
 from src.data_reposity import data_reposity
 from src.reports.report_factory import report_factory
@@ -66,7 +67,7 @@ class test_reporting(unittest.TestCase):
         start.create()
 
         # Действие
-        report = report_factory().create(format_reporting.CSV)
+        report = report_factory(Settings()).create(format_reporting.CSV)
 
         # Проверка
         assert report is not None
@@ -79,12 +80,12 @@ class test_reporting(unittest.TestCase):
         manager.open("../settings.json")
         reposity = data_reposity()
         start = start_service(reposity, manager)
-        start.create()
-        factory = report_factory()
+        result = start.create()
+        factory = report_factory(Settings())
 
         # Действие
         report = factory.create(format_reporting.MARKDOWN)
-        report.create(reposity.data[data_reposity.range_key()])
+        report.create(result[0].noms)
         report.save("output_markdown_report")
 
         assert report is not None
@@ -96,7 +97,7 @@ class test_reporting(unittest.TestCase):
         reposity = data_reposity()
         start = start_service(reposity, manager)
         start.create()
-        factory = report_factory()
+        factory = report_factory(Settings())
 
         report = factory.create(format_reporting.JSON)
         report.create(reposity.data[data_reposity.range_key()])

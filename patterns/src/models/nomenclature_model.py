@@ -11,10 +11,11 @@ class nomenclature_model(abstract_reference):
         super().__init__()
 
     @staticmethod
-    def create_nomenclature(full_name, group):
+    def create_nomenclature(full_name, group, range):
         nom = nomenclature_model()
         nom.full_name = full_name
         nom.group = group
+        nom.range = range
         return nom
 
     @property

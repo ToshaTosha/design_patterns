@@ -26,6 +26,10 @@ class abstract_reference(ABC):
     def unique_code(self) -> str:
         return self.__name
 
+    @unique_code.setter
+    def unique_code(self, value):
+        self.__unique_code = value
+
     @abstractmethod
     def set_compare_mode(self, other_object) -> bool:
         if other_object is None: return False

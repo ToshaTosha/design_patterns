@@ -40,9 +40,24 @@ class abstract_report(ABC):
         validator.validate(value, str)
         self.__result = value
 
+    @staticmethod
+    def get_class_fields(class_object: object):
+        return list(filter(lambda x: not x.startswith("_") and not callable(getattr(class_object.__class__, x)),
+                           dir(class_object.__class__)))
+
     def save_report(self, file_name):
-        with open(file_name, "w") as file:
-            file.write(self.result)
+        try:
+            # Проверка наличия файла
+            with open(file_name, "x", encoding="utf-8") as file:
+                file.write(self.result)
+                return True
+        except FileExistsError:
+            print("Файл уже существует. Пожалуйста, выберите другое имя файла.")
+        except PermissionError:
+            print("У вас нет прав на запись в этот файл.")
+        except Exception as e:
+            print(f"Произошла ошибка при записи файла: {e}")
+        return False
 
     def save(self, param):
         pass

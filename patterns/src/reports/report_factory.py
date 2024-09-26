@@ -14,10 +14,11 @@ from src.settings import Settings
 
 class report_factory(abstract_logic):
     __reports = {}
-    __settings = Settings()
+    __settings = None
 
-    def __init__(self) -> None:
+    def __init__(self, settings) -> None:
         super().__init__()
+        self.__settings = settings
         # Наборы отчетов
         self.__reports[format_reporting.CSV] = csv_report
         self.__reports[format_reporting.MARKDOWN] = markdown_report
