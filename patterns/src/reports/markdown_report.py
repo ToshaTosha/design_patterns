@@ -13,7 +13,7 @@ class markdown_report(abstract_report):
         if len(data) == 0:
             raise operation_exception("Набор данных пуст!")
 
-        first_model = data[0].nomenclature
+        first_model = data[0]
 
         # Список полей от типа назначения
         fields = self.get_class_fields(first_model)
@@ -30,9 +30,6 @@ class markdown_report(abstract_report):
         for row in data:
             self.result += "|"
             for field in fields:
-                value = getattr(row.nomenclature, field)
+                value = getattr(row, field)
                 self.result += f"{value}|"
             self.result += "\n"
-
-    def save(self, file_name):
-        self.save_report(file_name + ".md")

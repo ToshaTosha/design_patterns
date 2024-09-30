@@ -6,6 +6,7 @@ from src.core.validator import validator, operation_exception
 from src.reports.json_report import json_report
 from src.reports.markdown_report import markdown_report
 from src.settings import Settings
+from src.settings_manager import SettingsManager
 
 """
 Фабрика для формирования отчетов
@@ -13,8 +14,9 @@ from src.settings import Settings
 
 
 class report_factory(abstract_logic):
-    __reports = {}
-    __settings = None
+    __reports: dict = {}
+    __settings: dict = {}
+    __settings_manager: SettingsManager = None
 
     def __init__(self, settings) -> None:
         super().__init__()
@@ -38,16 +40,28 @@ class report_factory(abstract_logic):
         report = self.__reports[format]
         return report()
 
-    def create_default(self) -> abstract_report:
-        # Использование настроек для создания отчета по формату из настроек
-        format_setting = self.__settings.report_format
-        if format_setting not in self.__reports.keys():
-            self.set_exception(
-                operation_exception(f"Указанный вариант формата отчета {format_setting} не найден в настройках!"))
-            return None
+    def get_formats(self):
+        for key, value in self.__settings_manager.settings.report_formats.items():
+            self.reports_setting[format_reporting[key]] = value
 
-        report = self.__reports[format_setting]
-        return report()
+    @property
+    def reports(self) -> dict:
+        return self.__reports
+
+    @reports.setter
+    def reports(self, value: dict):
+        if not isinstance(value, dict):
+            self.set_exception(operation_exception(f"Неверный формат!"))
+            return None
+        self.__reports = value
+
+    @property
+    def settings(self) -> Settings:
+        return self.__settings_manager.settings
+
+    @property
+    def reports_setting(self) -> dict:
+        return self.__settings
 
     def set_exception(self, ex: Exception):
         self._inner_set_exception(ex)

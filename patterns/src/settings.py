@@ -2,6 +2,7 @@
 """
 Настройки
 """
+from src.core.format_reporting import format_reporting
 
 
 class Settings:
@@ -11,6 +12,8 @@ class Settings:
     __bik = ""
     __business_type = ""
     __report_format = ""
+    __report: format_reporting = format_reporting.CSV
+    __report_formats= {}
 
     report_formats_mapping = {
         "CSV": "csv_report",

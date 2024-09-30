@@ -1,5 +1,8 @@
+import os
+
 from src.reports.json_report import json_report
 from src.reports.markdown_report import markdown_report
+from src.reports.xml_report import xml_report
 from src.settings import Settings
 from src.start_service import start_service
 from src.data_reposity import data_reposity
@@ -16,92 +19,83 @@ import unittest
 
 
 class test_reporting(unittest.TestCase):
-    """
-    Проверка работы отчеиа CSV
-    """
 
-    def test_csv_report_create_range(self):
-        # Подготовка
+    def test_csv_reports(self):
         manager = settings_manager()
-        manager.open("../settings.json")
-        reposity = data_reposity()
-        start = start_service(reposity, manager)
-        start.create()
-        report = csv_report()
+        repository = data_reposity()
+        service = start_service(repository, manager)
+        service.create()
+        reports = {}
 
-        # Действие
-        report.create(reposity.data[data_reposity.range_key()])
+        nomenclature_report = csv_report()
+        nomenclature_report.create(repository.data[repository.nomenclature_key()])
+        reports["nomenclature_report"] = nomenclature_report
 
-        # Проверки
-        assert report.result != ""
 
-    """
-    Проверка работы отчеиа CSV
-    """
+        assert nomenclature_report.result != ""
 
-    def test_csv_report_create_nomenclature(self):
-        # Подготовка
+        if not os.path.exists("reports"):
+            os.makedirs("reports")
+        for key, value in reports.items():
+            with open(f'reports/{key}.csv', 'w', encoding='utf-8') as f:
+                f.write(value.result)
+
+    def test_json_reports(self):
         manager = settings_manager()
-        manager.open("../settings.json")
-        reposity = data_reposity()
-        start = start_service(reposity, manager)
-        start.create()
-        report = csv_report()
+        repository = data_reposity()
+        service = start_service(repository, manager)
+        service.create()
+        reports = {}
 
-        # Действие
-        report.create(reposity.data[data_reposity.nomenclature_key()])
 
-        # Проверки
-        assert report.result != ""
+        nomenclature_report = json_report()
+        nomenclature_report.create(repository.data[repository.nomenclature_key()])
+        reports["nomenclature_report"] = nomenclature_report
 
-    """
-    Проверить работу фабрики для получения инстанса нужного отчета
-    """
 
-    def test_report_factory_create(self):
-        # Подготовка
+        assert nomenclature_report.result != ""
+
+        if not os.path.exists("reports"):
+            os.makedirs("reports")
+        for key, value in reports.items():
+            with open(f'reports/{key}.json', 'w', encoding='utf-8') as f:
+                f.write(value.result)
+
+    def test_markdown_reports(self):
         manager = settings_manager()
-        manager.open("../settings.json")
-        reposity = data_reposity()
-        start = start_service(reposity, manager)
-        start.create()
+        repository = data_reposity()
+        service = start_service(repository, manager)
+        service.create()
+        reports = {}
 
-        # Действие
-        report = report_factory(Settings()).create(format_reporting.CSV)
-
-        # Проверка
-        assert report is not None
-        assert isinstance(report, csv_report)
+        nomenclature_report = markdown_report()
+        nomenclature_report.create(repository.data[repository.nomenclature_key()])
+        reports["nomenclature_report"] = nomenclature_report
 
 
-    def test_markdown_report_create_range(self):
-        # Подготовка
+        assert nomenclature_report.result != ""
+
+        if not os.path.exists("reports"):
+            os.makedirs("reports")
+        for key, value in reports.items():
+            with open(f'reports/{key}.md', 'w', encoding='utf-8') as f:
+                f.write(value.result)
+
+    def test_xml_reports(self):
         manager = settings_manager()
-        manager.open("../settings.json")
-        reposity = data_reposity()
-        start = start_service(reposity, manager)
-        result = start.create()
-        factory = report_factory(Settings())
+        repository = data_reposity()
+        service = start_service(repository, manager)
+        service.create()
+        reports = {}
 
-        # Действие
-        report = factory.create(format_reporting.MARKDOWN)
-        report.create(result[0].noms)
-        report.save("output_markdown_report")
+        nomenclature_report = xml_report()
+        nomenclature_report.create(repository.data[repository.nomenclature_key()])
+        reports["nomenclature_report"] = nomenclature_report
 
-        assert report is not None
-        assert isinstance(report, markdown_report)
+        assert nomenclature_report.result != ""
 
-    def test_json_report_create_range(self):
-        manager = settings_manager()
-        manager.open("../settings.json")
-        reposity = data_reposity()
-        start = start_service(reposity, manager)
-        start.create()
-        factory = report_factory(Settings())
-
-        report = factory.create(format_reporting.JSON)
-        report.create(reposity.data[data_reposity.range_key()])
-        report.save("output_json_report")
-
-        assert report is not None
-        assert isinstance(report, json_report)
+        if not os.path.exists("reports"):
+            os.makedirs("reports")
+        for key, value in reports.items():
+            with open(f'reports/{key}.xml', 'w', encoding='utf-8') as f:
+                f.write(value.result)

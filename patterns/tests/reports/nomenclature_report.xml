@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<nomenclature_model>
+  <item>
+    <full_name>Пшеничная мука</full_name>
+    <group>
+      <name>Сырье</name>
+    </group>
+    <name/>
+    <range>
+      <name>грамм</name>
+      <base>None</base>
+      <coef>1</coef>
+    </range>
+    <unique_code/>
+  </item>
+  <item>
+    <full_name>Сахар</full_name>
+    <group>
+      <name>Сырье</name>
+    </group>
+    <name/>
+    <range>
+      <name>грамм</name>
+      <base>None</base>
+      <coef>1</coef>
+    </range>
+    <unique_code/>
+  </item>
+  <item>
+    <full_name>Сливочное масло</full_name>
+    <group>
+      <name>Сырье</name>
+    </group>
+    <name/>
+    <range>
+      <name>грамм</name>
+      <base>None</base>
+      <coef>1</coef>
+    </range>
+    <unique_code/>
+  </item>
+  <item>
+    <full_name>Яйца</full_name>
+    <group>
+      <name>Сырье</name>
+    </group>
+    <name/>
+    <range>
+      <name>штука</name>
+      <base>None</base>
+      <coef>1</coef>
+    </range>
+    <unique_code/>
+  </item>
+</nomenclature_model>

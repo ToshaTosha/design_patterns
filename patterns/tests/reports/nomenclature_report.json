@@ -1,0 +1,56 @@
+{
+  "nomenclature_model": [
+    {
+      "full_name": "\u041f\u0448\u0435\u043d\u0438\u0447\u043d\u0430\u044f \u043c\u0443\u043a\u0430",
+      "group": {
+        "name": "\u0421\u044b\u0440\u044c\u0435"
+      },
+      "name": "",
+      "range": {
+        "name": "\u0433\u0440\u0430\u043c\u043c",
+        "base": null,
+        "coef": 1
+      },
+      "unique_code": ""
+    },
+    {
+      "full_name": "\u0421\u0430\u0445\u0430\u0440",
+      "group": {
+        "name": "\u0421\u044b\u0440\u044c\u0435"
+      },
+      "name": "",
+      "range": {
+        "name": "\u0433\u0440\u0430\u043c\u043c",
+        "base": null,
+        "coef": 1
+      },
+      "unique_code": ""
+    },
+    {
+      "full_name": "\u0421\u043b\u0438\u0432\u043e\u0447\u043d\u043e\u0435 \u043c\u0430\u0441\u043b\u043e",
+      "group": {
+        "name": "\u0421\u044b\u0440\u044c\u0435"
+      },
+      "name": "",
+      "range": {
+        "name": "\u0433\u0440\u0430\u043c\u043c",
+        "base": null,
+        "coef": 1
+      },
+      "unique_code": ""
+    },
+    {
+      "full_name": "\u042f\u0439\u0446\u0430",
+      "group": {
+        "name": "\u0421\u044b\u0440\u044c\u0435"
+      },
+      "name": "",
+      "range": {
+        "name": "\u0448\u0442\u0443\u043a\u0430",
+        "base": null,
+        "coef": 1
+      },
+      "unique_code": ""
+    }
+  ]
+}
