@@ -9,7 +9,7 @@ from src.start_service import start_service
 from src.settings_manager import SettingsManager as settings_manager
 
 
-class test_reporting(unittest.TestCase):
+class test_deserialize(unittest.TestCase):
     def test_json_reports(self):
         manager = settings_manager()
         repository = data_reposity()
