@@ -12,7 +12,7 @@ from src.settings import Settings
 
 class SettingsManager(abstract_logic):
     __file_name = "settings.json"
-    __settings: Settings = Settings()
+    __settings: Settings = None
 
     def __new__(cls):
         if not hasattr(cls, 'instance'):
@@ -24,18 +24,11 @@ class SettingsManager(abstract_logic):
             self.__settings = self.__default_setting()
 
     def convert(self, data):
-        if data is None:
-            raise AttributeError()
-        fields = list(filter(lambda x: not x.startswith("_"), dir(self.__settings.__class__)))
-
-        for field in fields:
-            keys = list(filter(lambda x: x == field, data.keys()))
-            if len(keys) != 0:
-                value = data[field]
-
-                # Если обычное свойство - заполняем.
-                if not isinstance(value, list) and not isinstance(value, dict):
-                    setattr(self.__settings, field, value)
+        if dict is None:
+            raise TypeError("Некорректно переданы параметры!")
+        for key, value in dict.items():
+            if hasattr(self.__settings, key):
+                setattr(self.__settings, key, value)
 
     """
     Открыть и загрузить настройки
@@ -49,12 +42,10 @@ class SettingsManager(abstract_logic):
             self.__file_name = file_name
 
         try:
-            full_name = os.path.join(os.curdir, self.__file_name)
-            # stream = open(full_name)
-
-            with open(full_name, 'r', encoding='utf-8') as file:
-                data = json.load(file)
-                self.convert(data)
+            full_name = os.path.relpath(self.__file_name)
+            stream = open(full_name)
+            data = json.load(stream)
+            self.convert(data)
 
             return True
 
@@ -85,6 +76,11 @@ class SettingsManager(abstract_logic):
         data.correspondent_account = "16557615117"
         data.bik = "876323279"
         data.business_type = "68339"
+        data.report_formats = {
+            "CSV": "CSVReport",
+            "MARKDOWN": "MDReport",
+            "JSON": "JSONReport"
+        }
 
         return data
 

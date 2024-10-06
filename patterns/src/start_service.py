@@ -31,7 +31,13 @@ class start_service(abstract_logic):
 
 
     def __create_nomenclature_data(self):
-        self.__reposity.data[data_reposity.nomenclature_key()] = self.__reposity.data[data_reposity.recipe_key()].noms
+        list = []
+        recipe = self.__reposity.data[data_reposity.recipe_key()]
+        for recipe in self.__reposity.data[data_reposity.recipe_key()]:
+            for ingredient in recipe.rows:
+                if ingredient.nomenclature not in list:
+                    list.append(ingredient.nomenclature)
+        self.__reposity.data[data_reposity.nomenclature_key()] = list
 
     def __create_measurement_units_data(self):
         nomens = self.__reposity.data[data_reposity.nomenclature_key()]
@@ -40,9 +46,10 @@ class start_service(abstract_logic):
 
     def __create_nomenclature_group(self):
         nomens = self.__reposity.data[data_reposity.nomenclature_key()]
-        self.__reposity.data[data_reposity.group_key()] = list(set([x.nomenclature.group for x in nomens]))
+        self.__reposity.data[data_reposity.group_key()] = list(set([x.group for x in nomens]))
 
     def __create_recipets(self):
+        list = []
         recipe = recipe_model()
         nomen_group = nomenclature_group_model.default_group_source()
 
@@ -59,7 +66,7 @@ class start_service(abstract_logic):
         ]
 
         for ingredient in ingredients:
-            nom = nomenclature_model.create_nomenclature(ingredient["full_name"], nomen_group)
+            nom = nomenclature_model.create_nomenclature(ingredient["full_name"], nomen_group, ingredient["range"])
 
             row = receipt_row()
             row.nomenclature = nom
@@ -69,20 +76,21 @@ class start_service(abstract_logic):
             data.append(row)
 
         recipe.name = 'ВАФЛИ ХРУСТЯЩИЕ В ВАФЕЛЬНИЦЕ'
-        recipe.noms = data
+        recipe.rows = data
         recipe.description = '''
             Для приготовления вкусных вафель смешайте пшеничную муку с сахаром, растопленным сливочным маслом и взбитыми яйцами.
             Готовьте вафли в разогретой вафельнице до золотистости. Подавайте горячие вафли с добавлением свежих фруктов, меда или сиропа по вкусу.
         '''
 
-        self.__reposity.data[data_reposity.recipe_key()] = recipe
+        list.append(recipe)
+
+        self.__reposity.data[data_reposity.recipe_key()] = list
 
     def create(self):
         self.__create_recipets()
         self.__create_nomenclature_data()
         self.__create_nomenclature_group()
         self.__create_measurement_units_data()
-
         result = list(self.__reposity.data.values())
 
         return result

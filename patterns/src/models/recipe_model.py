@@ -16,12 +16,12 @@ class recipe_model(abstract_reference):
         self.__name = value
 
     @property
-    def noms(self):
-        return self.__noms
+    def rows(self):
+        return self.__rows
 
-    @noms.setter
-    def noms(self, value):
-        self.__noms = value
+    @rows.setter
+    def rows(self, value):
+        self.__rows = value
 
     @property
     def description(self):

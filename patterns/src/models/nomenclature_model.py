@@ -1,20 +1,23 @@
 from src.exeptions import argument_exception
 from src.models.abstract_reference import abstract_reference
+from src.models.nomenclature_group_model import nomenclature_group_model
+
 
 class nomenclature_model(abstract_reference):
     __full_name:str = ''
-    __group = None
     __range = None
+    __group: nomenclature_group_model = None
 
 
     def __init__(self):
         super().__init__()
 
     @staticmethod
-    def create_nomenclature(full_name, group):
+    def create_nomenclature(full_name, group, range):
         nom = nomenclature_model()
         nom.full_name = full_name
         nom.group = group
+        nom.range = range
         return nom
 
     @property
