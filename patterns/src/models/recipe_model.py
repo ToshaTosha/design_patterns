@@ -1,3 +1,4 @@
+from src.core.validator import validator
 from src.models.abstract_reference import abstract_reference
 from src.models.receipt_row import receipt_row
 
@@ -20,7 +21,8 @@ class recipe_model(abstract_reference):
         return self.__rows
 
     @rows.setter
-    def rows(self, value):
+    def rows(self, value: list):
+        validator.validate(value, list)
         self.__rows = value
 
     @property

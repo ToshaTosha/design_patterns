@@ -3,53 +3,61 @@
   <item>
     <full_name>Пшеничная мука</full_name>
     <group>
-      <name>Сырье</name>
-    </group>
-    <name/>
-    <range>
+      <unique_code>784ec9d14a414544bb1719944ce228a7</unique_code>
       <name>грамм</name>
       <base>None</base>
       <coef>1</coef>
+    </group>
+    <name/>
+    <range>
+      <unique_code>180a916a8c3c49219e04fb38e103989f</unique_code>
+      <name>Сырье</name>
     </range>
-    <unique_code/>
+    <unique_code>88c834c0fdb94389889c3fd20f37468e</unique_code>
   </item>
   <item>
     <full_name>Сахар</full_name>
     <group>
-      <name>Сырье</name>
-    </group>
-    <name/>
-    <range>
+      <unique_code>784ec9d14a414544bb1719944ce228a7</unique_code>
       <name>грамм</name>
       <base>None</base>
       <coef>1</coef>
+    </group>
+    <name/>
+    <range>
+      <unique_code>180a916a8c3c49219e04fb38e103989f</unique_code>
+      <name>Сырье</name>
     </range>
-    <unique_code/>
+    <unique_code>d6d3f2b30ee54219adbc513b40572355</unique_code>
   </item>
   <item>
     <full_name>Сливочное масло</full_name>
     <group>
-      <name>Сырье</name>
-    </group>
-    <name/>
-    <range>
+      <unique_code>784ec9d14a414544bb1719944ce228a7</unique_code>
       <name>грамм</name>
       <base>None</base>
       <coef>1</coef>
+    </group>
+    <name/>
+    <range>
+      <unique_code>180a916a8c3c49219e04fb38e103989f</unique_code>
+      <name>Сырье</name>
     </range>
-    <unique_code/>
+    <unique_code>863004b76dc84872877ad5e5e1cd9b02</unique_code>
   </item>
   <item>
     <full_name>Яйца</full_name>
     <group>
-      <name>Сырье</name>
-    </group>
-    <name/>
-    <range>
+      <unique_code>36fc713a31d848e99c05b993ae889336</unique_code>
       <name>штука</name>
       <base>None</base>
       <coef>1</coef>
+    </group>
+    <name/>
+    <range>
+      <unique_code>180a916a8c3c49219e04fb38e103989f</unique_code>
+      <name>Сырье</name>
     </range>
-    <unique_code/>
+    <unique_code>0eec828ad5f945fe806ca85661092cd7</unique_code>
   </item>
 </nomenclature_model>

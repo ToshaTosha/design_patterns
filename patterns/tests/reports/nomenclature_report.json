@@ -3,54 +3,62 @@
     {
       "full_name": "\u041f\u0448\u0435\u043d\u0438\u0447\u043d\u0430\u044f \u043c\u0443\u043a\u0430",
       "group": {
-        "name": "\u0421\u044b\u0440\u044c\u0435"
-      },
-      "name": "",
-      "range": {
+        "unique_code": "b47a23bcd37046dda115a7e9a9ef6d20",
         "name": "\u0433\u0440\u0430\u043c\u043c",
         "base": null,
         "coef": 1
       },
-      "unique_code": ""
+      "name": "",
+      "range": {
+        "unique_code": "8e004a92925c4e60acb750d0608db037",
+        "name": "\u0421\u044b\u0440\u044c\u0435"
+      },
+      "unique_code": "df999078566247019f22a3c57ebb17ac"
     },
     {
       "full_name": "\u0421\u0430\u0445\u0430\u0440",
       "group": {
-        "name": "\u0421\u044b\u0440\u044c\u0435"
-      },
-      "name": "",
-      "range": {
+        "unique_code": "b47a23bcd37046dda115a7e9a9ef6d20",
         "name": "\u0433\u0440\u0430\u043c\u043c",
         "base": null,
         "coef": 1
       },
-      "unique_code": ""
+      "name": "",
+      "range": {
+        "unique_code": "8e004a92925c4e60acb750d0608db037",
+        "name": "\u0421\u044b\u0440\u044c\u0435"
+      },
+      "unique_code": "322c7315bf2b47fea27a66204cba7db1"
     },
     {
       "full_name": "\u0421\u043b\u0438\u0432\u043e\u0447\u043d\u043e\u0435 \u043c\u0430\u0441\u043b\u043e",
       "group": {
-        "name": "\u0421\u044b\u0440\u044c\u0435"
-      },
-      "name": "",
-      "range": {
+        "unique_code": "b47a23bcd37046dda115a7e9a9ef6d20",
         "name": "\u0433\u0440\u0430\u043c\u043c",
         "base": null,
         "coef": 1
       },
-      "unique_code": ""
+      "name": "",
+      "range": {
+        "unique_code": "8e004a92925c4e60acb750d0608db037",
+        "name": "\u0421\u044b\u0440\u044c\u0435"
+      },
+      "unique_code": "79d449562d244244910a19e2113c783f"
     },
     {
       "full_name": "\u042f\u0439\u0446\u0430",
       "group": {
-        "name": "\u0421\u044b\u0440\u044c\u0435"
-      },
-      "name": "",
-      "range": {
+        "unique_code": "5bcaf563460b40f0a39576a30bf6c6c0",
         "name": "\u0448\u0442\u0443\u043a\u0430",
         "base": null,
         "coef": 1
       },
-      "unique_code": ""
+      "name": "",
+      "range": {
+        "unique_code": "8e004a92925c4e60acb750d0608db037",
+        "name": "\u0421\u044b\u0440\u044c\u0435"
+      },
+      "unique_code": "59e11f3d00eb49e9bdcd94d63eb24047"
     }
   ]
 }

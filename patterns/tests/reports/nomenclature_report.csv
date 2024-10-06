@@ -1,5 +1,5 @@
 full_name;group;name;range;unique_code;
-Пшеничная мука;<src.models.nomenclature_group_model.nomenclature_group_model object at 0x000001DAA1386010>;;<src.models.range_model.range_model object at 0x000001DAA0EF0990>;;
-Сахар;<src.models.nomenclature_group_model.nomenclature_group_model object at 0x000001DAA1386010>;;<src.models.range_model.range_model object at 0x000001DAA0EF0990>;;
-Сливочное масло;<src.models.nomenclature_group_model.nomenclature_group_model object at 0x000001DAA1386010>;;<src.models.range_model.range_model object at 0x000001DAA0EF0990>;;
-Яйца;<src.models.nomenclature_group_model.nomenclature_group_model object at 0x000001DAA1386010>;;<src.models.range_model.range_model object at 0x000001DAA12077D0>;;
+Пшеничная мука;<src.models.range_model.range_model object at 0x00000169692EFD10>;;<src.models.nomenclature_group_model.nomenclature_group_model object at 0x00000169692EFB90>;8c52e5bd94734957b8dbe14c1eeb6db1;
+Сахар;<src.models.range_model.range_model object at 0x00000169692EFD10>;;<src.models.nomenclature_group_model.nomenclature_group_model object at 0x00000169692EFB90>;9f84def743d44724818f967e213c46ab;
+Сливочное масло;<src.models.range_model.range_model object at 0x00000169692EFD10>;;<src.models.nomenclature_group_model.nomenclature_group_model object at 0x00000169692EFB90>;a5f7339f9fca467fa7447d931d4a2a58;
+Яйца;<src.models.range_model.range_model object at 0x00000169692EFF10>;;<src.models.nomenclature_group_model.nomenclature_group_model object at 0x00000169692EFB90>;8e444891b9ca47fd9aa90193c9196ba4;

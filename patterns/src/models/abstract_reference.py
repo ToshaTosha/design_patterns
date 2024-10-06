@@ -3,11 +3,12 @@ import uuid
 from src.exeptions import argument_exception
 
 class abstract_reference(ABC):
-    __unique_code: uuid.UUID
+    __unique_code: str
     __name: str = ''
 
-    def __init__(self):
-        self.__name = ''
+    def __init__(self) -> None:
+        super().__init__()
+        self.__unique_code = uuid.uuid4().hex
 
     @property
     def name(self):
@@ -24,7 +25,7 @@ class abstract_reference(ABC):
     """
     @property
     def unique_code(self) -> str:
-        return self.__name
+        return self.__unique_code
 
     @unique_code.setter
     def unique_code(self, value):
