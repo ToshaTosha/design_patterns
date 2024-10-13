@@ -20,14 +20,7 @@ manager.open("settings.json")
 start = start_service(repository, manager)
 start.create()
 
-data_mapping = {}
-methods = [method for method in dir(data_reposity) if
-        callable(getattr(data_reposity, method)) and method.endswith('_key')]
-
-for method in methods:
-    key_name = method.replace('_key', '')
-    key_value = getattr(data_reposity, method)()
-    data_mapping[key_name] = key_value
+data_mapping = repository.keys()
 
 @app.route("/api/reports/formats", methods=['GET'])
 def formats():
