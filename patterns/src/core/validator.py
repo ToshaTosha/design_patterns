@@ -54,3 +54,13 @@ class validator:
             raise argument_exception("Некорректная длина аргумента")
 
         return True
+
+    @staticmethod
+    def validate_not_none(value, field_name: str):
+        if value is None:
+            raise argument_exception(field_name, "Не может быть None")
+
+    @staticmethod
+    def validate_non_empty(value: str, argument_name: str):
+        if not value.strip():
+            raise argument_exception(argument_name, "Значение аргумента не должно быть пустым")
