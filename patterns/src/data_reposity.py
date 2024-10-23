@@ -42,6 +42,10 @@ class data_reposity(abstract_logic):
         return 'recipe_key'
 
     @staticmethod
+    def transactions_key() -> str:
+        return "transactions"
+
+    @staticmethod
     def keys() -> dict:
         result = {}
         methods = [method for method in dir(data_reposity) if

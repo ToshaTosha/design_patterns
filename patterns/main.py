@@ -2,6 +2,7 @@ import connexion
 from flask import Response
 
 from src.core.format_reporting import format_reporting
+from src.processes.process_storage_turn import process_storage_turn
 from src.reports import report_factory
 from src.data_reposity import data_reposity
 from src.settings_manager import SettingsManager as settings_manager
@@ -73,6 +74,46 @@ def filter_data(domain_type):
     report.create(filtered_data.data)
 
     return report.result
+
+@app.route("/api/filter/transactions", methods=["POST"])
+def get_transactions():
+    data = repository.data[data_mapping[data_reposity.transactions_key()]]
+    if not data:
+        return jsonify({"error": "No data available"}), 404
+
+    prototype = domain_prototype(data)
+
+    filtered_data = prototype.create(data)
+
+    if not filtered_data.data:
+        return jsonify({"message": "No transactions found"}), 404
+
+    report = report_factory(manager).create(format_reporting.JSON)
+    report.create(filtered_data.data)
+    return report.result
+
+@app.route("/api/filter/turnover", methods=["POST"])
+def get_turnover():
+    try:
+        transactions = repository.data[data_reposity.transactions_key()]
+
+        if not transactions:
+            return jsonify({"error": "No transactions available"}), 404
+
+        process = process_storage_turn()
+
+        turnovers = process.process(transactions=transactions)
+
+        if not turnovers:
+            return jsonify({"message": "No turnovers found"}), 404
+
+        report = report_factory(manager).create(format_reporting.JSON)
+        report.create(turnovers)
+
+        return report.result
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 if __name__ == '__main__':
     app.add_api('swagger.yaml')
