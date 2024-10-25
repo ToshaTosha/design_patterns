@@ -29,7 +29,8 @@ class TestStorageTransactionModel(unittest.TestCase):
             nomenclature=self.nomenclature,
             period=self.period,
             quantity=self.quantity,
-            range=self.range
+            range=self.range,
+            is_incoming=True
         )
 
         # Проверяем, что транзакция создана правильно

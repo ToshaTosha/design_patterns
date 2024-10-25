@@ -1,7 +1,10 @@
+from datetime import datetime
+
 import connexion
 from flask import Response
 
 from src.core.format_reporting import format_reporting
+from src.processes.process_factory import process_factory
 from src.processes.process_storage_turn import process_storage_turn
 from src.reports import report_factory
 from src.data_reposity import data_reposity
@@ -75,15 +78,32 @@ def filter_data(domain_type):
 
     return report.result
 
+
 @app.route("/api/filter/transactions", methods=["POST"])
 def get_transactions():
     data = repository.data[data_mapping[data_reposity.transactions_key()]]
     if not data:
         return jsonify({"error": "No data available"}), 404
 
+    filter_data = request.get_json()
+
+    # Извлекаем параметры фильтрации из запроса
+    storage = filter_data.get("storage")
+    nomenclature = filter_data.get("nomenclature")
+    start_period = filter_data.get("start_period")
+    end_period = filter_data.get("end_period")
+
+    # Преобразуем строки в datetime, если они указаны
+    if start_period:
+        start_period = datetime.fromisoformat(start_period)
+    if end_period:
+        end_period = datetime.fromisoformat(end_period)
+
     prototype = domain_prototype(data)
 
-    filtered_data = prototype.create(data)
+    # Фильтруем данные на основе переданных параметров
+    filtered_data = prototype.create(data, storage=storage, nomenclature=nomenclature, start_period=start_period,
+                                     end_period=end_period)
 
     if not filtered_data.data:
         return jsonify({"message": "No transactions found"}), 404
@@ -91,6 +111,7 @@ def get_transactions():
     report = report_factory(manager).create(format_reporting.JSON)
     report.create(filtered_data.data)
     return report.result
+
 
 @app.route("/api/filter/turnover", methods=["POST"])
 def get_turnover():
@@ -100,8 +121,9 @@ def get_turnover():
         if not transactions:
             return jsonify({"error": "No transactions available"}), 404
 
-        process = process_storage_turn()
-
+        factory = process_factory()
+        factory.build_structure(process_storage_turn)
+        process = factory.create('storage_turn')
         turnovers = process.process(transactions=transactions)
 
         if not turnovers:

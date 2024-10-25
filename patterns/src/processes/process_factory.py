@@ -5,10 +5,9 @@ from src.processes.process_storage_turn import process_storage_turn
 class process_factory:
     def __init__(self):
         self.__processes = {}
-        self.__build_structure()
 
-    def __build_structure(self):
-        self.__processes['storage_turn'] = process_storage_turn
+    def build_structure(self, process_class):
+        self.__processes['storage_turn'] = process_class
 
     def create(self, process_name: str) -> abstract_process:
         process_class = self.__processes.get(process_name)

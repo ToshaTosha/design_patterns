@@ -21,22 +21,27 @@ class TestProcessStorageTurn(unittest.TestCase):
         self.range.name = "Диапазон 1"
 
         self.transactions = [
-            storage_transaction_model.create(self.storage, self.nomenclature, datetime(2023, 1, 1), 100, self.range,
-                                             True),
-            storage_transaction_model.create(self.storage, self.nomenclature, datetime(2023, 1, 5), -50, self.range,
-                                             False),
-            storage_transaction_model.create(self.storage, self.nomenclature, datetime(2023, 1, 10), 200, self.range,
-                                             True),
-            storage_transaction_model.create(self.storage, self.nomenclature, datetime(2023, 1, 15), -30, self.range,
-                                             False),
-            storage_transaction_model.create(self.storage, self.nomenclature, datetime(2023, 2, 1), 150, self.range,
-                                             True),
+            storage_transaction_model.create(self.storage, self.nomenclature, datetime(2023, 1, 1), 100, self.range, True),
+            storage_transaction_model.create(self.storage, self.nomenclature, datetime(2023, 1, 5), -50, self.range, False),
+            storage_transaction_model.create(self.storage, self.nomenclature, datetime(2023, 1, 10), 200, self.range, True),
+            storage_transaction_model.create(self.storage, self.nomenclature, datetime(2023, 1, 15), -30, self.range, False),
+            storage_transaction_model.create(self.storage, self.nomenclature, datetime(2023, 2, 1), 150, self.range, True),
         ]
+
+    def filter_transactions(self, transactions, storage_name, start_period, end_period):
+        filtered_transactions = []
+        for transaction in transactions:
+            if start_period and not (start_period <= transaction.period <= end_period):
+                continue
+            if storage_name and transaction.storage.name != storage_name:
+                continue
+            filtered_transactions.append(transaction)
+        return filtered_transactions
 
     def test_process_storage_turn(self):
         process = process_storage_turn()
-        result = process.process(self.transactions, storage=self.storage.name, start_period=datetime(2023, 1, 1),
-                                 end_period=datetime(2023, 1, 31))
+        filtered_transactions = self.filter_transactions(self.transactions, self.storage.name, datetime(2023, 1, 1), datetime(2023, 1, 31))
+        result = process.process(filtered_transactions)
 
         expected_result = [
             {'storage': self.storage.unique_code, 'nomenclature': self.nomenclature.unique_code,
@@ -47,8 +52,8 @@ class TestProcessStorageTurn(unittest.TestCase):
 
     def test_process_storage_turn_no_transactions(self):
         process = process_storage_turn()
-        result = process.process([], storage=self.storage.name, start_period=datetime(2023, 1, 1),
-                                 end_period=datetime(2023, 1, 31))
+        filtered_transactions = self.filter_transactions([], self.storage.name, datetime(2023, 1, 1), datetime(2023, 1, 31))
+        result = process.process(filtered_transactions)
 
         expected_result = []
 
@@ -59,12 +64,13 @@ class TestProcessStorageTurn(unittest.TestCase):
         another_storage.name = "Склад 2"
 
         process = process_storage_turn()
-        result = process.process(self.transactions, storage=another_storage.name, start_period=datetime(2023, 1, 1),
-                                 end_period=datetime(2023, 1, 31))
+        filtered_transactions = self.filter_transactions(self.transactions, another_storage.name, datetime(2023, 1, 1), datetime(2023, 1, 31))
+        result = process.process(filtered_transactions)
 
         expected_result = []
 
         self.assertEqual(result, expected_result)
+
 
 
 if __name__ == '__main__':
