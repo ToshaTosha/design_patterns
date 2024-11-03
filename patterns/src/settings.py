@@ -2,6 +2,8 @@
 """
 Настройки
 """
+from datetime import datetime
+
 from src.core.format_reporting import format_reporting
 
 
@@ -13,6 +15,7 @@ class Settings:
     __business_type = ""
     __report_format = ""
     __report: format_reporting = format_reporting.CSV
+    __block_period = ""
     __report_formats= {}
 
     report_formats_mapping = {
@@ -83,6 +86,14 @@ class Settings:
         if len(value) != 5:
             raise ValueError("Вид собственности должен быть 5 символов")
         self.__business_type = value
+
+    @property
+    def block_period(self):
+        return self.__block_period
+
+    @block_period.setter
+    def block_period(self, value: str):
+        self.__block_period = datetime.strptime(value, "%Y-%m-%d")
 
     @property
     def report_format(self):
