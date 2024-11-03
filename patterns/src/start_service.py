@@ -76,7 +76,6 @@ class start_service(abstract_logic):
             data.append(row)
 
         recipe.name = 'ВАФЛИ ХРУСТЯЩИЕ В ВАФЕЛЬНИЦЕ'
-        print('data', data)
         recipe.rows = data
         recipe.description = '''
             Для приготовления вкусных вафель смешайте пшеничную муку с сахаром, растопленным сливочным маслом и взбитыми яйцами.
