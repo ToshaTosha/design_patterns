@@ -1,9 +1,11 @@
 from datetime import datetime
 
 import connexion
-from flask import Response
 
+from src.core.event_type import event_type
 from src.core.format_reporting import format_reporting
+from src.dto.observe_service import observe_service
+from src.models.nomenclature_model import nomenclature_model
 from src.processes.process_factory import process_factory
 from src.processes.process_storage_turn import process_storage_turn
 from src.reports import report_factory
@@ -15,6 +17,7 @@ from src.reports.json_report import json_report
 from flask import jsonify, request
 from src.dto.domain_prototype import domain_prototype
 from src.dto.filter_dto import filter_dto
+from src.core.nomenclature_service import NomenclatureService
 
 app = connexion.FlaskApp(__name__)
 
@@ -22,6 +25,7 @@ repository = data_reposity()
 manager = settings_manager()
 manager.open("settings.json")
 start = start_service(repository, manager)
+nomenclature_service_instance = NomenclatureService(repository)
 start.create()
 
 data_mapping = repository.keys()
@@ -136,6 +140,42 @@ def get_turnover():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/api/nomenclature', methods=['GET'])
+def get_nomenclature():
+    result = nomenclature_service_instance.get_nomenclature(request.args)
+    if "error" in result or "status" in result:
+        return jsonify(result), 404 if "error" in result else 200
+
+    report = report_factory(manager).create(format_reporting.JSON)
+    report.create(list(result))
+    return report.result, 200
+
+@app.route('/api/nomenclature', methods=['PUT'])
+def add_nomenclature():
+    result = nomenclature_service_instance.add_nomenclature(request.json)
+    if not isinstance(result, nomenclature_model):
+        return jsonify(result), 400
+
+    report = report_factory(manager).create(format_reporting.JSON)
+    report.create([result])
+    return report.result, 201
+
+
+@app.route('/api/nomenclature', methods=['PATCH'])
+def update_nomenclature():
+    statuses = observe_service.raise_event(event_type.CHANGE_NOMENCLATURE, request.json)
+    status = statuses[type(nomenclature_service_instance).__name__]
+    return jsonify(status), 200
+
+@app.route('/api/nomenclature', methods=['DELETE'])
+def delete_nomenclature():
+    try:
+        statuses = observe_service.raise_event(event_type.DELETE_NOMENCLATURE, request.json)
+        status = statuses[type(nomenclature_service_instance).__name__]
+        return jsonify(status), 200
+
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
 
 if __name__ == '__main__':
     app.add_api('swagger.yaml')
