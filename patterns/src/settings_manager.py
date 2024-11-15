@@ -76,6 +76,7 @@ class SettingsManager(abstract_logic):
         data.correspondent_account = "16557615117"
         data.bik = "876323279"
         data.business_type = "68339"
+        data.block_period = "2024-01-01"
         data.report_formats = {
             "CSV": "CSVReport",
             "MARKDOWN": "MDReport",
@@ -83,6 +84,34 @@ class SettingsManager(abstract_logic):
         }
 
         return data
+
+    def save(self):
+
+        full_path = self.__get_file_path(self.__file_name)
+
+        data_to_save = {
+            "inn": self.__settings.inn,
+            "account": self.__settings.account,
+            "corr_account": self.__settings.correspondent_account,
+            "bik": self.__settings.bik,
+            "block_period": self.__settings.block_period
+        }
+
+        try:
+            with open(full_path, 'w', encoding='utf-8') as file:
+                json.dump(data_to_save, file, ensure_ascii=False, indent=4)
+
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            self.set_exception(e)
+            raise "Ошибка при сохранении данных в файл."
+
+    @staticmethod
+    def __get_file_path(filename, search_path=os.curdir):
+        for root, dirs, files in os.walk(search_path):
+            full_path = os.path.join(root, filename)
+            if os.path.isfile(full_path):
+                return full_path
+        return None
 
     def set_exception(self, ex: Exception):
         self._inner_set_exception(ex)
