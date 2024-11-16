@@ -224,19 +224,20 @@ def get_osv_report():
 @app.route("/api/repository/save", methods=["POST"])
 def save_repository():
     try:
-        observe_service.raise_event(event_type.SAVE_REPOSITY,{})
-        return jsonify({"message": "Данные успешно сохранены в файл."}), 200
+        observe_service.raise_event(event_type.SAVE_REPOSITY, {})
+        return jsonify({"message": "Файл успешно сохранен."}), 200
     except Exception as e:
-        return jsonify({"error": f"Ошибка при сохранении данных в файл: {str(e)}"}), 500
+        return jsonify({"error": f"Не удалось сохранить файл: {str(e)}"}), 500
 
 
 @app.route("/api/repository/restore", methods=["POST"])
 def restore_repository():
     try:
         observe_service.raise_event(event_type.LOAD_REPOSITY, {})
-        return jsonify({"message": "Данные успешно восстановлены из файла."}), 200
+        return jsonify({"message": "Файл успешно восстановлен."}), 200
     except Exception as e:
-        return jsonify({"error": f"Ошибка при восстановлении данных из файла: {str(e)}"}), 500
+        return jsonify({"error": f"Не удалось восстановить файл: {str(e)}"}), 500
+
 
 if __name__ == '__main__':
     app.add_api('swagger.yaml')
