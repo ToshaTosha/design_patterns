@@ -1,4 +1,11 @@
 from src.core.abstract_logic import abstract_logic
+from src.models.nomenclature_model import nomenclature_model
+from src.models.range_model import range_model
+from src.models.recipe_model import recipe_model
+from src.models.storage_model import storage_model
+from src.models.storage_transaction_model import storage_transaction_model
+from src.models.nomenclature_group_model import nomenclature_group_model
+from src.models.storage_turn_model import storage_turn_model
 
 """
 Репозиторий данных
@@ -57,6 +64,23 @@ class data_reposity(abstract_logic):
             result[key_name] = key_value
 
         return result
+
+    @staticmethod
+    def create_item(key):
+        model_mapping = {
+            "nomenclature": nomenclature_model,
+            "warehouses": storage_model,
+            "range": range_model,
+            "group": nomenclature_group_model,
+            "recipes": recipe_model,
+            "transactions": storage_transaction_model,
+            "turnovers": storage_turn_model
+        }
+        model_class = model_mapping.get(key)
+        if model_class:
+            return model_class
+        else:
+            raise ValueError(f"Неизвестный ключ: {key}. Невозможно создать объект.")
 
     def set_exception(self, ex: Exception):
         self._inner_set_exception(ex)

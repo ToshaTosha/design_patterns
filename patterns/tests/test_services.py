@@ -66,5 +66,7 @@ class NomenclatureAPITests(unittest.TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json, {"error": "Deletion failed"})
 
+
+
 if __name__ == '__main__':
     unittest.main()
