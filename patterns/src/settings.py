@@ -5,6 +5,8 @@
 from datetime import datetime
 
 from src.core.format_reporting import format_reporting
+from src.core.event_type import event_type
+from src.dto.observe_service import observe_service
 
 
 class Settings:
@@ -33,11 +35,14 @@ class Settings:
     @inn.setter
     def inn(self, value: str):
         if not isinstance(value, str):
+            observe_service.raise_event(event_type.ERROR, {"message": f"Error setting INN"})
             raise TypeError("Некорректно переданы параметры!")
         if len(value) != 12:
+            observe_service.raise_event(event_type.ERROR, {"message": f"Error setting INN"})
             raise ValueError("Номер ИНН должен быть 12 символов")
 
         self.__inn = value
+        observe_service.raise_event(event_type.INFO, {"message": f"INN set to: {value}"})
 
     @property
     def account(self):
@@ -46,9 +51,12 @@ class Settings:
     @account.setter
     def account(self, value: str):
         if not isinstance(value, str):
+            observe_service.raise_event(event_type.ERROR, {"message": f"Error setting account"})
             raise TypeError("Некорректно переданы параметры!")
         if len(value) != 11:
+            observe_service.raise_event(event_type.ERROR, {"message": f"Error setting account"})
             raise ValueError("Номер счёта должен быть 11 символов")
+        observe_service.raise_event(event_type.INFO, {"message": f"Account set to: {value}"})
         self.__account = value
 
     @property
