@@ -1,17 +1,11 @@
-from src.utils.custom_exceptions import ArgumentTypeException
-from enum import Enum
+from src.core.log_type import LogType
+from src.exeptions import ArgumentTypeException
 
 from src.core.event_type import event_type as EventType
 from src.settings_manager import SettingsManager
 from datetime import datetime
 from src.core.abstract_logic import abstract_logic as AbstractLogic
 from src.dto.observe_service import observe_service as ObserveService
-
-
-class LogType(Enum):
-    INFO = 1
-    ERROR = 2
-    DEBUG = 3
 
 
 class Log:

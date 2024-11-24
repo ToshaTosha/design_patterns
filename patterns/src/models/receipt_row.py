@@ -1,4 +1,3 @@
-from src.exeptions import argument_exception
 from src.models.range_model import range_model
 from src.models.abstract_reference import abstract_reference
 from src.models.nomenclature_model import nomenclature_model
