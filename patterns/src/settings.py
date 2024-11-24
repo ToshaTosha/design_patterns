@@ -8,6 +8,8 @@ from src.core.format_reporting import format_reporting
 from src.core.event_type import event_type
 from src.dto.observe_service import observe_service
 
+from src.core.logging import LogType
+
 
 class Settings:
     __inn = ""
@@ -19,6 +21,10 @@ class Settings:
     __report: format_reporting = format_reporting.CSV
     __block_period = ""
     __report_formats= {}
+    __min_log_type: LogType = LogType.DEBUG
+    __log_to_console: bool = True
+    __log_to_file: bool = True
+    __log_file_path: str = "../log.txt"
 
     report_formats_mapping = {
         "CSV": "csv_report",
