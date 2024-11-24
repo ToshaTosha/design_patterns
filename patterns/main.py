@@ -4,6 +4,7 @@ import connexion
 
 from src.core.event_type import event_type
 from src.core.format_reporting import format_reporting
+from src.core.logging import logging
 from src.dto.observe_service import observe_service
 from src.models.nomenclature_model import nomenclature_model
 from src.processes.process_factory import process_factory
@@ -29,17 +30,22 @@ manager.open("settings.json")
 start = start_service(repository, manager)
 nomenclature_service_instance = NomenclatureService(repository)
 start.create()
+logger = logging(manager)
 
 data_mapping = repository.keys()
 balance_sheet = turnover_balance_sheet(repository.data[data_reposity.transactions_key()], manager)
 
 @app.route("/api/reports/formats", methods=['GET'])
 def formats():
+    observe_service.raise_event(event_type.DEBUG, "/api/reports/formats GET")
     result = []
     for report in format_reporting:
         result.append({"name": report.name, "value": report.value})
 
     observe_service.raise_event(event_type.CREATE_OSV, {})
+
+    observe_service.raise_event(event_type.INFO, f"Список типов отчётов готов готов")
+    observe_service.raise_event(event_type.DEBUG, result)
     return result
 
 

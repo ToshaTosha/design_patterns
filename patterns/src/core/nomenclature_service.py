@@ -21,6 +21,7 @@ class NomenclatureService(abstract_logic):
         existing_nomenclatures = self.filter_model(nomenclature_filter)
 
         if not existing_nomenclatures:
+            observe_service.raise_event(event_type.ERROR, "Отсутствует unique_code")
             return {"status": "Номенклатура с указанным уникальным кодом не найдена."}
 
         return existing_nomenclatures
@@ -49,6 +50,7 @@ class NomenclatureService(abstract_logic):
     def update_nomenclature(self, request):
         unique_code = request.get('unique_code')
         if not unique_code:
+            observe_service.raise_event(event_type.ERROR, "Отсутствует unique_code")
             return {"error": "Отсутствует уникальный код!"}
 
         nomenclature = self.get_nomenclature_by_code(unique_code)
