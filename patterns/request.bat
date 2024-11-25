@@ -34,3 +34,15 @@ curl -X 'POST' \
     "type": "like"
   }
 }'
+
+curl -X 'GET' \
+  'http://127.0.0.1:8001/api/block_period' \
+  -H 'accept: application/json'
+
+ curl -X 'POST' \
+  'http://127.0.0.1:8000/api/new_block_period' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "block_period": "2024-12-31"
+}'
