@@ -20,7 +20,7 @@ from flask import jsonify, request
 from src.dto.domain_prototype import domain_prototype
 from src.dto.filter_dto import filter_dto
 from src.core.nomenclature_service import NomenclatureService
-from src import reposity_manager
+from src.reposity_manager import reposity_manager
 
 app = connexion.FlaskApp(__name__)
 repository = data_reposity()
