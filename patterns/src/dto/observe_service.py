@@ -1,5 +1,5 @@
 from src.core.abstract_logic import abstract_logic
-from src.utils.custom_exceptions import ArgumentException
+from src.exeptions import ArgumentTypeException
 from src.core.event_type import event_type
 
 class observe_service:
@@ -12,7 +12,7 @@ class observe_service:
             return
 
         if not isinstance(service, abstract_logic):
-            raise ArgumentException("service", "Некорректный тип данных!")
+            raise ArgumentTypeException("service", "AbstractLogic")
 
         items =  list(map( lambda x: type(x).__name__,  observe_service.observers))
         found =    type( service ).__name__ in items

@@ -1,4 +1,4 @@
-from src.exeptions import argument_exception
+from src.exeptions import ArgumentMaxLengthException
 from src.models.abstract_reference import abstract_reference
 from src.models.nomenclature_group_model import nomenclature_group_model
 from src.models.range_model import range_model
@@ -28,7 +28,7 @@ class nomenclature_model(abstract_reference):
     @full_name.setter
     def full_name(self, value: str):
         if len(value) > 255:
-            raise argument_exception('Full name should not exceed 255 characters')
+            raise ArgumentMaxLengthException("name", 255)
         self.__full_name = value
 
     @property

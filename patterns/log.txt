@@ -1,0 +1,71 @@
+2024-11-23T21:24:48.665703	[DEBUG] /api/reports/formats GET
+2024-11-23T21:24:48.665703	[DEBUG] [{'name': 'CSV', 'value': 1}, {'name': 'MARKDOWN', 'value': 2}, {'name': 'JSON', 'value': 3}, {'name': 'XML', 'value': 4}, {'name': 'RTF', 'value': 5}, {'name': 'TBS', 'value': 6}]
+2024-11-23T21:25:14.611814	[DEBUG] /api/reports/measurement/JSON GET
+2024-11-23T21:25:14.611814	[DEBUG] FormatReporting.JSON
+2024-11-23T21:25:41.522997	[DEBUG] /api/reports/ingredient/JSON GET
+2024-11-23T21:36:33.649185	[DEBUG] /api/save_data POST
+2024-11-23T21:36:33.805105	[INFO] Данные успешно сохранены в файл
+2024-11-23T21:39:08.804585	[DEBUG] /api/filter/nomenclature POST
+2024-11-23T21:39:08.805587	[DEBUG] [
+{
+    "full_name": "",
+    "group": {
+      "name": "Ингредиенты",
+      "unique_code": "a1b2c3d4e5f60123456789abcdef0123"
+    },
+    "measurement": {
+      "base": null,
+      "coefficient": 1,
+      "name": "гр",
+      "unique_code": "a1b2c3d4e5f60123456789abcdef0456"
+    },
+    "name": "Оливковое масло",
+    "unique_code": "a1b2c3d4e5f60123456789abcdef0789"
+  },
+  {
+    "full_name": "",
+    "group": {
+      "name": "Ингредиенты",
+      "unique_code": "a1b2c3d4e5f60123456789abcdef1234"
+    },
+    "measurement": {
+      "base": null,
+      "coefficient": 1,
+      "name": "гр",
+      "unique_code": "a1b2c3d4e5f60123456789abcdef0456"
+    },
+    "name": "Какао-порошок",
+    "unique_code": "a1b2c3d4e5f60123456789abcdef5678"
+  },
+  {
+    "full_name": "",
+    "group": {
+      "name": "Ингредиенты",
+      "unique_code": "a1b2c3d4e5f60123456789abcdef2345"
+    },
+    "measurement": {
+      "base": null,
+      "coefficient": 1,
+      "name": "гр",
+      "unique_code": "a1b2c3d4e5f60123456789abcdef0456"
+    },
+    "name": "Сахар",
+    "unique_code": "a1b2c3d4e5f60123456789abcdef6789"
+  },
+  {
+    "full_name": "",
+    "group": {
+      "name": "Ингредиенты",
+      "unique_code": "a1b2c3d4e5f60123456789abcdef3456"
+    },
+    "measurement": {
+      "base": null,
+      "coefficient": 1,
+      "name": "мл",
+      "unique_code": "a1b2c3d4e5f60123456789abcdef0456"
+    },
+    "name": "Кокосовое молоко",
+    "unique_code": "a1b2c3d4e5f60123456789abcdef7890"
+  }
+]
+2024-11-23T21:39:57.576057	[DEBUG] /api/filter/nomenclature POST

@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 import uuid
-from src.exeptions import argument_exception
 
 class abstract_reference(ABC):
     __unique_code: str
